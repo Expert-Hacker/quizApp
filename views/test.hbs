@@ -74,11 +74,11 @@
    
                 }
                .main_cont  .loading_cls_clr{
-                   font-size: 20px;
+                   {{!-- font-size: 20px;
                    color: rgb(0, 0, 0) !important;
                    background-color: rgb(250, 235, 33) !important;
                    padding: 3px 25px 3px 25px;
-                   border-radius: 9px;
+                   border-radius: 9px; --}}
                }
                .main_cont .yourAnswer{
                    background-color: rgb(126, 182, 42);
@@ -109,6 +109,7 @@
                    display: flex;
                    justify-content: center;
                }
+          
 
               {{!-- MEDIA QUERY START --}}
                @media only screen and (max-width: 480px){
@@ -157,14 +158,14 @@
                    font-size: 19px;
                }
                .main_cont .inner_cont .answer_msg{
-                   margin-top: 30px;
+                   margin-top: 55px;
                }
                }
             </style>
 </head>
 <body onload="pageLoad()">
             <div class="main_cont">
-           
+          
                     <div class="timer">
                         <h1 class="text-light" id="timer"></h1>
                     </div>
@@ -193,12 +194,13 @@
                                     <button class="next btn btn-warning next_hvr" id="btn_next" onclick="newQuestion()">NEXT <i class="fas fa-arrow-right"></i></button>
                                 </div>
                                 <div class="answer_msg">
-                                         <h4 class="text-white yourAnswer" id="yourAnswer_id">your Answer was Saved!</h4>
+                                         <h4 class="text-white yourAnswer" id="yourAnswer_id">Answer Saved!</h4>
                                 </div>
                                 
                         </div>
                        
                         <h1 class="text-light loading_cls loading_cls_clr" id="loading">Loading...</h1>
+                        {{!-- <img src="/728.gif" height="100px" width="100px" id="loading"s class=" loading_cls loading_cls_clr" alt="abc"> --}}
                        
                         <div class="timeover container" id="timeover_id">
                             <h1 class="text-warning display-1 text-center">OOPS!..Time is Over</h1>
