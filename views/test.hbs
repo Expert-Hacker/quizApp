@@ -105,6 +105,10 @@
                 margin-top: 50px !important;
                 margin: auto !important;
                }
+               .main_cont .inner_cont .answer_msg{
+                   display: flex;
+                   justify-content: center;
+               }
 
               {{!-- MEDIA QUERY START --}}
                @media only screen and (max-width: 480px){
@@ -152,6 +156,9 @@
                    padding: 2px 10px 2px 10px;
                    font-size: 19px;
                }
+               .main_cont .inner_cont .answer_msg{
+                   margin-top: 30px;
+               }
                }
             </style>
 </head>
@@ -185,7 +192,12 @@
                                    
                                     <button class="next btn btn-warning next_hvr" id="btn_next" onclick="newQuestion()">NEXT <i class="fas fa-arrow-right"></i></button>
                                 </div>
+                                <div class="answer_msg">
+                                         <h4 class="text-white yourAnswer" id="yourAnswer_id">your Answer was Saved!</h4>
+                                </div>
+                                
                         </div>
+                       
                         <h1 class="text-light loading_cls loading_cls_clr" id="loading">Loading...</h1>
                        
                         <div class="timeover container" id="timeover_id">
@@ -193,7 +205,7 @@
                             <p class="text-center text-white display-5">Don't worry, we kept your answer safe 🥰</p>
                             <button class="btn mt-3 btn-info fw-bold w-50" onclick="scoreBoard();">VIEW SCORE</button>
                         </div>
-                        <h4 class="text-white yourAnswer" id="yourAnswer_id">your Answer was Saved!</h4>
+                        
                         <div class="scoreboard" id="scoreboard_id">
                                 <div class="top_c">
                                         <h1 class="score text-light display-2 text-center" id="score"></h1>
