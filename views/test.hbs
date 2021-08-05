@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Ongoing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            <style>
+                .main_cont{
+                    height: 100vh;
+                    width: 100vw;
+                         background-color: rgb(29, 42, 83);
+                            display: flex;
+                            flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .main_cont .inner_cont{
+                    height: 80vh;
+                    width: 80vw;
+                    background-color: rgb(54, 60, 85);
+                }
+                .main_cont .timer{
+                    position: absolute;
+                    top: 0px;
+                    right: 20px;
+                }
+                .main_cont .inner_cont .options{
+                    display: flex;
+                    flex-direction: column;
+                }
+                .main_cont .inner_cont .options input{
+                    height: 20px;
+                    width: 20px;
+                }
+                .main_cont .inner_cont .options p{
+                    font-size: 21px;
+                    position: relative;
+                    top: -8px;
+                    margin-left: 9px;
+                }
+                .main_cont .inner_cont .btns{
+                    display: flex;
+                    flex-direction: row;
+                    position: relative;
+                    justify-content: space-between;
+                    top: 50px;
+                }
+                .main_cont .inner_cont .btns .save{
+                    width: 100px !important;
+                        margin-left: 50px !important;
+                }
+                      .main_cont .inner_cont .btns .next{
+                    width: 100px !important;
+                        margin-right: 50px !important;
+                        
+                }
+           
+                .main_cont .hide_inn_cont{
+                    display: none;
+                }
+                .main_cont .modal .modal-dialog .modal-content{
+                    position: relative !important;
+                    right: 270px;
+                    width: 70vw !important;
+                    height: 80vh !important;
+                    {{!-- background-color: yellow !important; --}}
+                }
+                .main_cont .loading_cls{
+                    position: absolute;
+                    {{!-- background-color: white; --}}
+   
+                }
+               .main_cont  .loading_cls_clr{
+                   font-size: 20px;
+                   color: rgb(0, 0, 0) !important;
+                   background-color: rgb(250, 235, 33) !important;
+                   padding: 3px 25px 3px 25px;
+                   border-radius: 9px;
+               }
+               .main_cont .yourAnswer{
+                   background-color: rgb(126, 182, 42);
+                   padding: 5px 30px 5px 30px;
+                   border-radius: 10px;
+                   font-size: 20px;
+               }
+               .main_cont .scoreboard{
+                   border-radius: 8px;
+                  background-color: rgb(34, 49, 97);
+                   height: 70vh;
+                   width: 60vw;
+                   display: flex;
+                   flex-direction: column;
+                   justify-content:space-around;
+                   align-items: center;
+               }
+               .main_cont .timeover{
+                   display: flex;
+                   flex-direction: column;
+                   justify-content: center;
+               }
+               .main_cont .timeover button{
+                margin-top: 50px !important;
+                margin: auto !important;
+               }
+
+              {{!-- MEDIA QUERY START --}}
+               @media only screen and (max-width: 480px){
+                   .main_cont .inner_cont .qurstion_sec h3{
+                       font-size: 20px;
+                   }
+                   .main_cont .inner_cont .options p{
+                       font-size: 17px;
+                   }
+                   .main_cont .inner_cont .options p{
+                       top: -3px;
+                   }
+                   .main_cont .inner_cont .btns{
+                       top: 20px;
+                   }
+                     .main_cont  .loading_cls_clr{
+                   font-size: 15px;
+                   color: rgb(0, 0, 0) !important;
+                   background-color: rgb(250, 235, 33) !important;
+                   padding: 3px 15px 3px 15px;
+                   border-radius: 9px;
+                    }
+                       .main_cont .yourAnswer{
+                   background-color: rgb(126, 182, 42);
+                   padding: 5px 30px 5px 30px;
+                   border-radius: 10px;
+                   font-size: 13px;
+               }
+                .main_cont .inner_cont .btns button{
+                    height: 40px;
+                    padding: 0px;
+                    font-size: 13px;
+               }
+               .main_cont .scoreboard{
+                    width: 89vw;
+               }
+               .main_cont .scoreboard .top_c h1{
+                   font-size: 34px;
+               }
+               .main_cont .inner_cont{
+                   height: 90vh;
+               }
+               .main_cont .timer h1{
+                   background-color: red;
+                   padding: 2px 10px 2px 10px;
+                   font-size: 19px;
+               }
+               }
+            </style>
+</head>
+<body onload="pageLoad()">
+            <div class="main_cont">
+           
+                    <div class="timer">
+                        <h1 class="text-light" id="timer"></h1>
+                    </div>
+                        <div class="inner_cont  " id="inner_cont_id">
+                                <div class="qurstion_sec">
+                                    <h3 class="text-light mt-4 mx-3" id="question_id"></h3>
+                                </div>
+                                <div class="options mt-5 mx-5">
+                                    <div class="d-flex mb-3">
+                                             <input type="radio" id="rad1" name="a"><p class="text-light"  id="opt1"></p>
+                                    </div>
+                                     <div class="d-flex  mb-3">
+                                             <input type="radio" id="rad2" name="a" ><p class="text-light" id="opt2"></p>
+                                    </div>
+                                     <div class="d-flex  mb-3">
+                                             <input type="radio" id="rad3" name="a" ><p class="text-light" id="opt3"></p>
+                                    </div>
+                                     <div class="d-flex mb-3">
+                                             <input type="radio" id="rad4" name="a" ><p class="text-light" id="opt4"></p>
+                                    </div>
+                                   
+                                </div>
+                                <div class="btns">
+                                    <button class="save btn btn-success " id="save_btn_id" onclick="save()">SAVE</button>
+                                   
+                                    <button class="next btn btn-warning next_hvr" id="btn_next" onclick="newQuestion()">NEXT <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                        </div>
+                        <h1 class="text-light loading_cls loading_cls_clr" id="loading">Loading...</h1>
+                       
+                        <div class="timeover container" id="timeover_id">
+                            <h1 class="text-warning display-1 text-center">OOPS!..Time is Over</h1>
+                            <p class="text-center text-white display-5">Don't worry, we kept your answer safe 🥰</p>
+                            <button class="btn mt-3 btn-info fw-bold w-50" onclick="scoreBoard();">VIEW SCORE</button>
+                        </div>
+                        <h4 class="text-white yourAnswer" id="yourAnswer_id">your Answer was Saved!</h4>
+                        <div class="scoreboard" id="scoreboard_id">
+                                <div class="top_c">
+                                        <h1 class="score text-light display-2 text-center" id="score"></h1>
+                                        <h1 class="text-light display-4 mt-3  text-center" id="greeting"></h1>
+                                </div>
+                                <div class="bottom_c">
+                                  
+                                            <a href="/getdata/instructions" class="btn  btn-warning">TRY AGAIN</a>
+                                            {{!-- <button class="btn  btn-primary"><i class="fas fa-home"></i> HOME</button> --}}
+                                            <a href="/" class="btn btn-primary"><i class="fas fa-home"></i>HOME</a>
+                                </div>
+                        </div>
+                        
+           
+            </div>
+
+
+
+       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        {{!-- JAVA SCRIPT START HERE --}}
+            <script>   
+                let quiz_url;
+                {{!-- let index=0; --}}
+                let index=0;
+                let selected_ans;
+                let score=0;
+                let ansFromApi;
+                let quizover=false;
+                document.getElementById('timeover_id').style.display='none'; //TIME OVER DISPLAY
+                document.getElementById('scoreboard_id').style.display='none'//HIDING SCOREBOARD
+                document.getElementById('inner_cont_id').classList.add('hide_inn_cont')
+                document.getElementById('yourAnswer_id').style.display='none';//HIDING YOUR ANSWER SAVED MSG
+
+                           //CODE FOR TIMER
+                       
+                             let start_mins=12;
+                             let time =start_mins*60;
+                             let timer= document.getElementById('timer');
+                             setInterval(updateTimer,1000);
+                             function updateTimer()
+                             {
+                                 let miins=Math.floor(time/60);
+                                 let sec= time%60;
+                                 sec=sec <10 ? '0' + sec : sec;
+                                 if(miins=='0')
+                                 {
+                                     miins="00";
+                                 }
+                                 timer.innerHTML=`00:${miins}:${sec}`
+                                 time--;
+                                 if(miins=="00" && sec==00)
+                                 {
+                                     timer.style.display='none';
+                                     if(quizover==true)
+                                     {
+                                             document.getElementById('timeover_id').style.display='none'; //TIME OVER DISPLAY
+                                     }
+                                     else
+                                     {
+                                         document.getElementById('inner_cont_id').classList.add('hide_inn_cont')
+                                            document.getElementById('timeover_id').style.display='flex'; //TIME OVER DISPLAY
+                                     }
+
+                                 }
+                             }
+                        
+
+                    function pageLoad()
+                    {           
+                        
+                            
+                            console.log(`index val: ${index}`)
+                            document.getElementById('yourAnswer_id').style.display='none';//HIDING YOUR ANSWER SAVED MSG
+                            document.getElementById('loading').style.display='inline'
+                            document.getElementById('score').style.display='none'; //HIDING USER SCORE
+                            if(index!==10)
+                            {
+                                document.getElementById('btn_next').classList.add('disabled')
+                                
+                                let category = localStorage.getItem('category');
+                                let difficulty = localStorage.getItem('difficulty');
+
+                                if((category=="anycategory")&&(difficulty=="anydifficulty"))
+                                {
+                                    quiz_url=`https://opentdb.com/api.php?amount=10&type=multiple`;
+                                }
+                                else if((category=="anycategory")&&(difficulty=="easy" || difficulty=="medium" || difficulty=="hard"))
+                                {
+                                    quiz_url=`https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple`
+                                }
+                                else if((category!=="anycategory")&&(difficulty=="anydifficulty"))
+                                {
+                                        quiz_url=`https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
+                                }
+                                else if((category!=="anycategory")&&(difficulty!=="anydifficulty"))
+                                {
+                                    quiz_url=`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
+                                }
+                                else
+                                {
+                                    alert('Some thing went wrong!')
+                                }
+                                
+                                //FETCHING THE DATA
+                                fetch(quiz_url).then(function(res){
+                                    return res.json();
+                                }).then(function(data){
+
+                                  
+
+                                             console.log(data)
+                                        //TIMER CODE END HERE
+                                        console.log(data.results[index].question)//question
+                                        clearRadiobtn();//CLEASRING PREVIOUS RADIO BUTTON
+                                         document.getElementById('loading').style.display='none'//HIDING LOADING TEXT
+                                        document.getElementById('inner_cont_id').classList.remove('hide_inn_cont')//DISPLAYING
+                                        document.getElementById('question_id').innerText=`${index+1}) ${data.results[index].question}`//question
+                                         document.getElementById('save_btn_id').classList.remove('disabled')
+                                        ansFromApi =data.results[index].correct_answer;
+                                
+                                        let opt1 = document.getElementById('opt1')
+                                        let opt2 = document.getElementById('opt2')
+                                        let opt3 = document.getElementById('opt3')
+                                        let opt4 = document.getElementById('opt4')
+
+                                        document.getElementById('rad1').value=data.results[index].incorrect_answers[0] //SETTING VALUE INTO RADIO BTN
+                                        document.getElementById('rad2').value=data.results[index].incorrect_answers[1]
+                                        document.getElementById('rad3').value=data.results[index].correct_answer;
+                                        document.getElementById('rad4').value=data.results[index].incorrect_answers[2]
+
+                                        opt1.innerText= data.results[index].incorrect_answers[0]  //display options in <p> tag
+                                        opt2.innerText= data.results[index].incorrect_answers[1]
+                                        opt3.innerText=data.results[index].correct_answer;
+                                        opt4.innerText= data.results[index].incorrect_answers[2]
+                                        index++;
+                                        if(index==10)
+                                        {
+                                            document.getElementById('btn_next').innerText="VIEW SCORE";
+                                            document.getElementById('btn_next').style.backgroundColor="red"
+                                            document.getElementById('btn_next').style.color="white"
+                                        }
+
+
+                                })
+                            }
+                            else
+                            {
+                                document.getElementById('loading').style.display='none'//HIDING LOADING TEXT
+                                document.getElementById('inner_cont_id').classList.add('hide_inn_cont')
+                               scoreBoard();
+                                //have tocall functio for scrore board
+
+                            }
+                    }//PAGE LOAD END
+                    
+                    function save()
+                    { 
+                            if((rad1.checked==true) || (rad2.checked==true) ||  (rad3.checked==true) || (rad4.checked==true))
+                            {
+                                document.getElementById('btn_next').classList.remove('disabled')
+                                  if(rad1.checked==true)
+                                {
+                                    console.log(`selected ans`+rad1.value)
+                                    selected_ans = rad1.value;
+                                    
+                                }
+                                if(rad2.checked==true)
+                                {
+                                    console.log(`selected ans`+rad2.value)
+                                    selected_ans = rad2.value;
+                                }
+                                if(rad3.checked==true)
+                                {
+                                    console.log(`selected ans`+rad3.value)
+                                    selected_ans = rad3.value;
+                                }
+                                if(rad4.checked==true)
+                                {
+                                    console.log(`selected ans`+rad4.value)
+                                    selected_ans = rad4.value;
+                                }
+                                document.getElementById('save_btn_id').classList.add('disabled')
+                                evaluate();
+                            }
+                            else
+                            {
+                                alert("Please select the answer")
+                            }
+
+                    }
+                    function newQuestion()
+                    {
+                        pageLoad()
+                    }
+
+                    function clearRadiobtn() //CLEARING RADIO BTN SELECTED VALUE
+                    {
+                        console.log("making")
+                      rad1.checked=false;
+                      rad2.checked=false;
+                      rad3.checked=false;
+                      rad4.checked=false;
+                    }
+                    function evaluate()
+                    {
+                            document.getElementById('yourAnswer_id').style.display='inline';//SHOWING YOUR ANSWER SAVED MSG
+                            if(selected_ans==ansFromApi)
+                            {
+                                    console.log(`actual answer:${ansFromApi}`)
+                                    score++;
+                            }
+                    }
+                    function scoreBoard()
+                    {           
+                                quizover=true;
+                                document.getElementById('timer').style.display='none'
+                                clearInterval(updateTimer);
+                                document.getElementById('inner_cont_id').classList.add('hide_inn_cont')
+                                 document.getElementById('timeover_id').style.display='none'; //TIME OVER DISPLAY
+                                 document.getElementById('scoreboard_id').style.display='flex'
+                                let scoreELe =document.getElementById('score');
+                                scoreELe.style.display='inline';
+                                scoreELe.innerText=`YOUR SCORE: ${score}/10`
+                                if((score>=0)&&(score<=3))
+                                {
+                                    document.getElementById('greeting').innerText="TRY AGAIN!"
+                                }
+                                else if((score>3)&&(score<=7))
+                                {
+                                        document.getElementById('greeting').innerText="YOU ALMOST GOT IT!"
+                                }
+                                else
+                                {
+                                     document.getElementById('greeting').innerText="GREAT JOB!"
+                                }
+                    }
+                
+
+            </script>
+
+</body>
+</html>

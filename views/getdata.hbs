@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Select Options</title>
+    <link rel="stylesheet" href="/public/getData.css">
+</head>
+<style>
+    .main_cont{
+        height: 100vh;
+        width: 100vw;
+        background-color: rgb(29, 42, 83);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .main_cont .inner_cont{
+        height: 60vh;
+        width: 60vw;
+        border: 2px dashed white;
+        color: white;
+        border-radius: 10px;
+    }
+    .main_cont .inner_cont .username{
+        display: flex;
+        justify-content: center;
+  
+    }
+    .main_cont .inner_cont .controls{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+    .main_cont .inner_cont .controls select{
+        width: 170px;
+        height: 29px;
+        border-radius: 6px;
+    }
+    .main_cont .inner_cont .greetings{
+        opacity: 0.8;
+    }
+    .main_cont .inner_cont{
+        display: flex;
+        flex-direction: column;
+        justify-content:space-around;
+        
+    }
+       @media only screen and (max-width: 480px){
+           .main_cont .inner_cont{
+               width: 90vw;
+           }
+           .main_cont .inner_cont .option_caption{
+               display: flex;
+               justify-content: center;
+              
+           }
+            .main_cont .inner_cont .option_caption h4{
+                 font-size: 17px;
+            }
+            .main_cont .inner_cont .greetings h3{
+                font-size: 18px;
+            }
+            .main_cont .inner_cont .controls{
+               position: relative;
+               left: 21px;
+            }
+       }
+</style>
+<body>
+        <div class="main_cont">
+            <form action="getdata/instructions">
+                    <div class="inner_cont">
+                            <div class="username">
+                                <h1>Hii,</h1>
+                                <h1 id="username"></h1>
+                            </div>
+                            <div class="greetings">
+                                <h3 class="text-center">We are Happy to see You 🙂</h3>
+                            </div>
+                            <hr>
+                            <div class="option_caption">
+                                <h4 class="mx-3">Please select the following options</h4>
+                            </div>
+                            <div class="controls">
+                                <div class="category">
+                                        <label for="select">Category: </label>
+                                        <select name="" id="select1">
+                                        <option value="anycategory">Any Category</option>
+                                        <option value="9">General Knowledge</option>
+                                        <option value="15">Video Games</option>
+                                        <option value="18">Computers</option>
+                                        <option value="21">Sports</option>
+                                        <option value="23">History</option>
+                                        <option value="17">Science and Nature</option>
+                                        
+                                        </select>
+                                </div>
+                                <div class="difficulty">
+                                        <label for="select">Difficulty: </label>
+                                        <select name="" id="select2">
+                                            <option value="anydifficulty">Any Difficulty</option>
+                                            <option value="easy">Easy</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="hard">Hard</option>
+                                        </select>
+                                </div>
+                            </div>
+                        <div class="btn">
+                            <button class="btn btn-primary w-25 mt-5" type="submit" onclick="submitVal()">SUBMIT</button>
+                        </div>
+                    </div>
+                    </form>
+        </div>
+
+     <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script>
+            document.getElementById('username').innerText=localStorage.getItem('username')
+
+            function submitVal()
+            {
+                    let select1 = document.getElementById('select1');
+                    console.log(select1.options[select1.selectedIndex].value);
+                    localStorage.clear();
+                    localStorage.setItem('category',select1.options[select1.selectedIndex].value)
+
+                    let select2 = document.getElementById('select2');
+                    console.log(select2.options[select2.selectedIndex].value);
+                    localStorage.setItem('difficulty',select2.options[select2.selectedIndex].value)
+            }
+            
+
+
+
+        </script>
+</body>
+</html>
