@@ -1,3 +1,3 @@
 # quizApp
 
-LINK: https://quizapp-supbquiz.herokuapp.com/getdata?
+LINK: https://quizapp-supbquiz.herokuapp.com/
